@@ -132,7 +132,7 @@ cluster = getClusterFromFile("Cluster")
 
 # VM requests from the traces are received inside taskEvents
 
-taskEvents = getTaskSubmissionEventsFromFile("Workloads/Workload_Traces_test")
+taskEvents = getTaskSubmissionEventsFromFile("Workloads/Modified_Workload_Traces")
 
 # placement_schedulers = [FirstFit()]
 placement_schedulers = [Multi_resource_alignment()]
