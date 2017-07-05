@@ -4,7 +4,7 @@
 # re-visited.
 
 from Placement import Placement
-
+import time
 
 
 def getKey(task):
@@ -16,6 +16,8 @@ class FirstFit_discard(Placement):
         self.requestLatency = []
 
     def VMplacement(self):
+        start_time = time.time()
+
         current_time = 0
         unplaced_tasks = self.tasks[:]
         backlogged_tasks = []
@@ -69,6 +71,8 @@ class FirstFit_discard(Placement):
                 self.getResults(current_time)
             current_time += 1
 
+        end_time = time.time()
+        self.getTimeResult(end_time - start_time)
 
 
     def getResults(self, current_round):

@@ -25,6 +25,7 @@ class Multi_resource_alignment(Placement):
 
         machine_empty = False
         enough_resource = True
+        firstFailureAlready = False
 
         while unplaced_tasks or not machine_empty:
             machine_empty = self.updateMachines(current_time)
@@ -79,6 +80,9 @@ class Multi_resource_alignment(Placement):
             if not enough_resource:
                 print "Multi-Resource Packing: not enough resource for all tasks, time", current_time
                 unplaced_tasks.sort(key=getKey, reverse=False)
+                if not firstFailureAlready:
+                    self.getFirstFailureResult()  # First Failure Utilization Check
+                    firstFailureAlready = True
 
             if current_time % 10 == 0 or (len(unplaced_tasks) == 0):
                 self.getResults(current_time)
