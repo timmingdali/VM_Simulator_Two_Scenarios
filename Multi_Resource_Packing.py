@@ -1,10 +1,11 @@
 
 # Written by Siqi
 # 2017-06-30
+# Modefied by Ginny
 
 from Placement import Placement
 import sys
-
+import time
 
 
 def getKey(task):
@@ -16,6 +17,8 @@ class Multi_resource_alignment(Placement):
         self.requestLatency = []
 
     def VMplacement(self):
+        start_time = time.time()
+
         current_time = 0
         unplaced_tasks = self.tasks[:]
         backlogged_tasks = []
@@ -80,6 +83,9 @@ class Multi_resource_alignment(Placement):
             if current_time % 10 == 0 or (len(unplaced_tasks) == 0):
                 self.getResults(current_time)
             current_time += 1
+
+        end_time = time.time()
+        self.getTimeResult(end_time - start_time)
 
 
 

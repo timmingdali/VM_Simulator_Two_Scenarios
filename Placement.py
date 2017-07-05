@@ -77,4 +77,8 @@ class Placement(object):
                 f.write("%d\t%.2f\t%.2f\n" % (machine.machineID, (machine.CPU - machine.availCPU)/machine.CPU \
                                                   ,(machine.mem - machine.availMem)/machine.mem) )
 
+    def getTimeResult(self, time_elapsed):
+        path = "results/time_elapsed"
 
+        with open(path, 'a') as f:
+            f.write("%s\t%f\n" % (self.__str__(), time_elapsed))

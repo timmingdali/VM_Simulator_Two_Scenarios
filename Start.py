@@ -134,9 +134,10 @@ cluster = getClusterFromFile("Cluster")
 
 taskEvents = getTaskSubmissionEventsFromFile("Workloads/Workload_Traces_test")
 
-
-placement_schedulers = [FirstFit_discard()]
-#placement_schedulers = [Multi_resource_alignment_discard()]
+# placement_schedulers = [FirstFit()]
+placement_schedulers = [Multi_resource_alignment()]
+# placement_schedulers = [FirstFit_discard()]
+# placement_schedulers = [Multi_resource_alignment_discard()]
 
 
 for placement in placement_schedulers:

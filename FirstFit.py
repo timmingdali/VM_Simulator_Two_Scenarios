@@ -1,9 +1,10 @@
 
 # Written by Siqi
 # 2017-06-30
+#Modified by Ginny
 
 from Placement import Placement
-
+import time
 
 
 def getKey(task):
@@ -15,6 +16,8 @@ class FirstFit (Placement):
         self.requestLatency = []
 
     def VMplacement(self):
+        start_time = time.time()
+
         current_time = 0
         unplaced_tasks = self.tasks[:]
         backlogged_tasks = []
@@ -57,14 +60,15 @@ class FirstFit (Placement):
 
 
             if not enough_resource:
-                print "First Fit Discard: not enough resource for all tasks, time", current_time
+                print "First Fit: not enough resource for all tasks, time", current_time
                 unplaced_tasks.sort(key=getKey, reverse=False)
 
             if current_time % 1 == 0 or (len(unplaced_tasks) == 0):
                 self.getResults(current_time)
             current_time += 1
 
-
+        end_time = time.time()
+        self.getTimeResult(end_time - start_time)
 
     def getResults(self, current_round):
         super(FirstFit, self).getResults(current_round)
