@@ -265,7 +265,7 @@ plt.plot(sorted_data, yvals, label = "First Fit Discard" )
 plt.legend()
 
 
-plt.title('First Failure CPU Utilization CDF')
+plt.title('First Failure Discard CPU Utilization CDF 3')
 plt.xlabel('CPU Utilization')
 plt.ylabel('CDF')
 
@@ -317,7 +317,7 @@ plt.plot(sorted_data, yvals, label = "First Fit Discard" )
 plt.legend()
 
 
-plt.title('First Failure Memory Utilization CDF')
+plt.title('First Failure Discard Memory Utilization CDF 3')
 plt.xlabel('Memory Utilization')
 plt.ylabel('CDF')
 
