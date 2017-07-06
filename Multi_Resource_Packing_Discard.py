@@ -28,6 +28,8 @@ class Multi_resource_alignment_discard(Placement):
 
         while unplaced_tasks or not machine_empty:
             machine_empty = self.updateMachines(current_time)
+            enough_resource = True
+
             while unplaced_tasks:
                 if unplaced_tasks[0].arrival_time <= current_time:
                     backlogged_tasks.append(unplaced_tasks.pop(0))
@@ -75,6 +77,10 @@ class Multi_resource_alignment_discard(Placement):
 
             backlogged_tasks = []
 
+            if not unplaced_tasks:           #VM placement finished
+                end_time = time.time()
+                self.getTimeResult(float(end_time - start_time))
+
             if not enough_resource:
                 print "Multi-Resource Packing Discard: not enough resource for all tasks, time", current_time
                 unplaced_tasks.sort(key=getKey, reverse=False)
@@ -86,10 +92,6 @@ class Multi_resource_alignment_discard(Placement):
             if current_time % 10 == 0 or (len(unplaced_tasks) == 0):
                 self.getResults(current_time)
             current_time += 1
-
-        end_time = time.time()
-        self.getTimeResult(end_time - start_time)
-
 
     def getResults(self, current_round):
         super(Multi_resource_alignment_discard, self).getResults(current_round)

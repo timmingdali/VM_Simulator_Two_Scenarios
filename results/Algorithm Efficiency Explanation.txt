@@ -1,0 +1,3 @@
+This graph shows the algorithm efficiency by testing the time elapsed during VM placement. 
+
+The timing ends when every VM is placed but not necessarily deleted. The algorithms are tested under 10 different workloads with the VM request varing from 100 to 1900 in increment of 200. The VM requests comes one by one, with duration around 2000 unit time, and deploy_size_mean at 20. The cluster has 100 PMs with 32 CPU cores and 100000 MEM. 

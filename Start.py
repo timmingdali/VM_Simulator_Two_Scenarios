@@ -28,6 +28,7 @@ from Multi_Resource_Packing_Discard import Multi_resource_alignment_discard
 
 from Sim import Sim
 from random import randrange
+from workload_generator import getWorkload
 
 def getKey(task):
     return task.arrival_time
@@ -127,33 +128,32 @@ def plotResults():
 
 
 
-cluster = getClusterFromFile("Cluster")
+cluster = getClusterFromFile("Cluster_test")
 
 
 # VM requests from the traces are received inside taskEvents
+for task_requst in range(5, 105, 10):    # #VM request varying from 100 to 2000 in increment of 200
+    getWorkload(task_requst)
 
-# taskEvents = getTaskSubmissionEventsFromFile("Workloads/Workload_Traces_test",
-# "Workloads/Actual_Workload_Traces", "Workloads/Modified_Workload_Traces")
-taskEvents = getTaskSubmissionEventsFromFile("Workloads/Modified_Workload_Traces")
+    # placement_schedulers = [FirstFit(),Multi_resource_alignment(),FirstFit_discard(),Multi_resource_alignment_discard()]
+    # placement_schedulers = [FirstFit()]
+    # placement_schedulers = [FirstFit(),Multi_resource_alignment()]
+    # placement_schedulers = [FirstFit_discard()]
+    placement_schedulers = [FirstFit_discard(),Multi_resource_alignment_discard()]
 
-# placement_schedulers = [FirstFit(),Multi_resource_alignment(),FirstFit_discard(),Multi_resource_alignment_discard()]
+    for placement in placement_schedulers:
+        taskEvents = getTaskSubmissionEventsFromFile("Workloads/Workload_Traces_test")
+        # taskEvents = getTaskSubmissionEventsFromFile("Workloads/Actual_Workload_Traces")
 
-# placement_schedulers = [FirstFit()]
-# placement_schedulers = [Multi_resource_alignment()]
-# placement_schedulers = [FirstFit_discard()]
-placement_schedulers = [Multi_resource_alignment_discard()]
+        print("Now using %s ..." % placement)
+        placement.cluster = cluster
+        placement.tasks = taskEvents[:]
+        sim = Sim(placement)
 
+        sim.placeTasks()
 
-for placement in placement_schedulers:
-    print("Now using %s ..." % placement)
-    placement.cluster = cluster
-    placement.tasks = taskEvents[:]
-    sim = Sim(placement)
+        for machine in cluster:
+            machine.cleanMachine()
 
-    sim.placeTasks()
-
-    for machine in cluster:
-        machine.cleanMachine()
-
-    print("simulation finished...")
+        print("simulation finished...")
 

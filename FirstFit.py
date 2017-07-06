@@ -28,6 +28,7 @@ class FirstFit (Placement):
 
         while unplaced_tasks or not machine_empty:
             machine_empty = self.updateMachines(current_time)
+            enough_resource = True
 
             while unplaced_tasks:
                 if unplaced_tasks[0].arrival_time <= current_time:
@@ -59,6 +60,9 @@ class FirstFit (Placement):
 
             backlogged_tasks = []
 
+            if enough_resource and not unplaced_tasks:           #VM placement finished
+                end_time = time.time()
+                self.getTimeResult(float(end_time - start_time))
 
             if not enough_resource:
                 print "First Fit: not enough resource for all tasks, time", current_time
@@ -71,8 +75,7 @@ class FirstFit (Placement):
                 self.getResults(current_time)
             current_time += 1
 
-        end_time = time.time()
-        self.getTimeResult(end_time - start_time)
+
 
     def getResults(self, current_round):
         super(FirstFit, self).getResults(current_round)

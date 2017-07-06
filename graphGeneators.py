@@ -356,9 +356,9 @@ for element in algorithms:
     plt.plot(time.get(element), label="%s" % element)
 
 plt.title('Algorithm Efficiency')
-plt.xticks([0,1,2], ['Workload_Traces_test','Actual_Workload_Traces','Modified_Workload_Traces'], rotation=17)
-plt.xlabel('Workload Traces')
-plt.ylabel('Time Elapsed')
+plt.xticks(range(10), range(100, 2100, 200))
+plt.xlabel('Workload Size')
+plt.ylabel('Time Elapsed(s)')
 plt.legend()
 
 plt.show()

@@ -28,6 +28,7 @@ class FirstFit_discard(Placement):
 
         while unplaced_tasks or not machine_empty:
             machine_empty = self.updateMachines(current_time)
+            enough_resource = True
 
             while unplaced_tasks:
                 if unplaced_tasks[0].arrival_time <= current_time:
@@ -59,6 +60,10 @@ class FirstFit_discard(Placement):
 
             backlogged_tasks = []
 
+            if not unplaced_tasks:           #VM placement finished
+                end_time = time.time()
+                self.getTimeResult(float(end_time - start_time))
+
             if not enough_resource:
                 print "First Fit: not enough resource for all tasks, time", current_time
                 unplaced_tasks.sort(key=getKey, reverse=False)
@@ -70,9 +75,6 @@ class FirstFit_discard(Placement):
             if current_time % 1 == 0 or (len(unplaced_tasks) == 0):
                 self.getResults(current_time)
             current_time += 1
-
-        end_time = time.time()
-        self.getTimeResult(end_time - start_time)
 
 
     def getResults(self, current_round):
